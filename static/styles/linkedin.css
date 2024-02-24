@@ -1,0 +1,343 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+header img {
+  display: block;
+  margin: 32px 0 0 56px;
+  width: 110px;
+}
+
+.container {
+  width: 352px;
+  -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  border-radius: 8px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.container .header h1 {
+  font-size: 3.2rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  padding: 0 0 4px 0;
+}
+
+.container .header p {
+  font-size: 1.4rem;
+  line-height: 1.42857;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.form {
+  margin-top: 24px;
+}
+
+.input-container {
+  margin: 24px 0;
+  width: 100%;
+  position: relative;
+}
+
+label {
+  font-size: 1.8rem;
+  position: absolute;
+  left: 12px;
+  transform: translateY(50%);
+  transition: all 0.2s ease;
+  color: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+input {
+  font-size: 1.8rem;
+  line-height: 1.33333;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  height: 52px;
+  padding: 28px 12px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  width: 100%;
+  outline: none;
+  transition-property: border-color, box-shadow, -webkit-box-shadow;
+  transition-duration: 334ms;
+}
+
+input:focus {
+  box-shadow: 0 0 0 1px #0a66c2;
+  border-color: #0073b1;
+}
+
+input:focus + label,
+input:valid + label {
+  transform: translateY(25%);
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.show-password {
+  position: absolute;
+  top: 14px;
+  right: 4px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 600;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 8px;
+  color: #0a66c2;
+  border-radius: 28px;
+  z-index: 1;
+  transition-duration: 167ms;
+  transition-property: background-color, box-shadow, color;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.show-password:hover {
+  background-color: #d0e8ff;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.forgot-password {
+  cursor: pointer;
+  font-size: 1.6rem;
+  display: inline-block;
+  position: relative;
+  left: -8px;
+  margin-top: 8px;
+  font-weight: 600;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 8px;
+  text-align: center;
+  transition-duration: 167ms;
+  transition-property: background-color, box-shadow, color;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  vertical-align: middle;
+  color: rgb(10, 102, 194);
+  border-radius: 28px;
+}
+
+.forgot-password:hover {
+  background-color: #e4f1ff;
+  text-decoration: underline;
+}
+
+.btn-container {
+  margin-top: 16px;
+}
+
+.form button {
+  height: 52px;
+  line-height: 52px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 0 24px;
+  text-align: center;
+  color: #fff;
+  background-color: #0a66c2;
+  border: none;
+  transition-duration: 167ms;
+  transition-property: background-color, box-shadow, color;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  border-radius: 28px;
+  width: 100%;
+}
+
+.form button:hover {
+  background-color: #004182;
+}
+
+.more {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+
+.seperator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seperator-line {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.seperator span {
+  font-size: 1.4rem;
+  line-height: 1.42857;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.policies {
+  font-size: 12px;
+  padding-top: 8px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  margin: 4px 0;
+}
+
+.policies span {
+  font-weight: 600;
+  color: #0a66c2;
+  cursor: pointer;
+}
+
+.policies span:hover {
+  text-decoration: underline;
+}
+
+.more-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 40px;
+  padding: 0 24px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 2px rgba(0, 0, 0, 0), inset 0 0 0 1px rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.6);
+  border-radius: 28px;
+  height: 42px;
+  transition-duration: 167ms;
+  transition-property: background-color, box-shadow, color;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.more-link-img {
+  width: 28px;
+  height: 28px;
+}
+
+.more-link:hover {
+  background-color: rgba(207, 207, 207, 0.25);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.sign-up {
+  text-align: center;
+  margin: 32px 0 0;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 1.6rem;
+}
+
+.sign-up span {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 8px;
+  color: #0a66c2;
+  border-radius: 28px !important;
+}
+
+footer {
+  display: flex;
+  width: 100%;
+  min-height: 72px;
+  padding: 0 32px;
+}
+
+footer ul {
+  display: flex;
+  max-width: 1128px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer ul li {
+  list-style: none;
+  font-size: 1.2rem;
+  line-height: 1.33333;
+  font-weight: 600;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+footer ul li:hover {
+  text-decoration: underline;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.footer-logo img {
+  width: 62px;
+  cursor: default;
+  position: relative;
+  top: 4px;
+}
+.footer-logo span {
+  cursor: text;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 400;
+}
+
+.footer-logo:hover {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+  header img {
+    margin: 32px 32px 16px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 416px;
+    -webkit-box-shadow: unset;
+    box-shadow: unset;
+    padding: 0 32px;
+  }
+
+  .more-link span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  footer {
+    display: none;
+  }
+}

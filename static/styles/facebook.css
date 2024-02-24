@@ -1,0 +1,260 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.content {
+  background-color: rgb(240, 242, 245);
+  width: 100%;
+  min-height: 93vh;
+}
+
+.content-container {
+  max-width: 980px;
+  padding: 112px 32px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+  box-sizing: border-box;
+  margin-right: 0;
+  width: 580px;
+  padding-right: 32px;
+}
+
+.left .img {
+  padding: 92px 0 0 0;
+}
+
+.left img {
+  width: 320px;
+  margin: -28px;
+}
+
+.left h2 {
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 32px;
+  padding-right: 12px;
+}
+
+.right {
+  height: 456px;
+  width: 396px;
+}
+
+.shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input {
+  border: 1px solid #dddfe2;
+  color: #1c1e2192;
+  border-radius: 6px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  height: 22px;
+  line-height: 16px;
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+.form input:focus {
+  outline: none;
+  color: #1c1e21;
+  border-color: #0866ff;
+  box-shadow: 0 0 0 2px #e7f3ff;
+  caret-color: #0866ff;
+}
+
+.form button {
+  background-color: #0866ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 48px;
+  padding: 0 16px;
+  width: 332px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: bold;
+  width: 100%;
+  transition: 200ms cubic-bezier(0.08, 0.52, 0.52, 1) background-color,
+    200ms cubic-bezier(0.08, 0.52, 0.52, 1) box-shadow,
+    200ms cubic-bezier(0.08, 0.52, 0.52, 1) transform;
+}
+
+.form button:hover {
+  background-color: #1877f2;
+}
+
+.form button:focus {
+  box-shadow: 0 0 1px 2px rgba(88, 144, 255, 0.75),
+    0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.form > div {
+  text-align: center;
+}
+
+.form > div span {
+  cursor: pointer;
+  color: #0866ff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form > div span:hover {
+  text-decoration: underline;
+}
+
+.seperator {
+  align-items: center;
+  border-bottom: 1px solid #dadde1;
+  display: flex;
+  margin: 20px 0px;
+  text-align: center;
+}
+
+.create-new-container {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.create-new-container button {
+  display: inline-block;
+  height: 48px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 6px;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 48px;
+  padding: 0 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #fff;
+  background-color: #42b72a;
+  transition: 200ms cubic-bezier(0.08, 0.52, 0.52, 1) background-color,
+    200ms cubic-bezier(0.08, 0.52, 0.52, 1) box-shadow,
+    200ms cubic-bezier(0.08, 0.52, 0.52, 1) transform;
+}
+
+.create-new-container button:hover {
+  background-color: #36a420;
+  border-color: #36a420;
+}
+
+.create-page {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.footer-container {
+  width: 980px;
+  margin: auto;
+  padding: 32px 0;
+}
+
+.footer-container ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-container ul li {
+  list-style: none;
+  color: #737373;
+  font-size: 12px;
+}
+
+.copyright {
+  color: #737373;
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+@media only screen and (max-width: 1080px) {
+  .left {
+    width: 44%;
+  }
+
+  .left h2 {
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 26px;
+  }
+
+  .footer-container {
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .content-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 36px;
+    gap: 32px;
+  }
+
+  .left {
+    max-width: 400px;
+    width: auto;
+    text-align: center;
+    align-items: center;
+    padding-right: 0;
+  }
+
+  .left .img {
+    padding: 0;
+  }
+
+  .left img {
+    width: 330px;
+    padding: 0;
+  }
+
+  .left h2 {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 412px) {
+  .content-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .right {
+    width: 100%;
+  }
+}

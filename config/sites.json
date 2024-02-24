@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Facebook",
+    "template": "facebook.html",
+    "redirect_to": "https://www.facebook.com/"
+  },
+  {
+    "name": "Instagram",
+    "template": "instagram.html",
+    "redirect_to": "https://www.instagram.com/"
+  },
+  {
+    "name": "Linkedin",
+    "template": "linkedin.html",
+    "redirect_to": "https://www.linkedin.com/"
+  },
+  {
+    "name": "Paypal",
+    "template": "paypal.html",
+    "redirect_to": "https://www.paypal.com/"
+  }
+]

