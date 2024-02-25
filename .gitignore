@@ -1,0 +1,4 @@
+data.json
+logs
+.venv/
+templates/index.html
