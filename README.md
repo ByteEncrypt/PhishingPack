@@ -1,22 +1,35 @@
 # PhishingPack
 
-PhishingPack is a powerful phishing tool that makes it easy to perform phishing attacks. It provides a simple command-line interface (CLI) to manage and run your phishing campaigns. With its modular design, you can easily add more templates and customize existing ones to fit your needs.
+PhishingPack is a powerful phishing tool that provides phishing site templates for popular sites and it makes it easy to capture credentials from the victim. It provides a simple command-line interface (CLI) to manage and run your phishing campaigns.
+
+<br/>
 
 ## Features
 
 - User-friendly CLI
 - Simple setup process
-- Built-in template selector
+- Built-in templates
 - Real-time data monitoring
-- Data collection and storage
-- Multi-platform support
+
+<br/>
+
+## Built-in templates
+
+PhishingPack comes with the following built-in site templates:
+
+- Amazon
+- Facebook
+- Instagram
+- LinkedIn
+- paypal
+
+<br/>
 
 ## Requirements
 
-- Python 3.x
-- `Flask`: A lightweight web framework for creating APIs
-- `rich`: For colorful terminal output
-- `pyfiglet`: To create eye-catching headers
+`PhishingPack` is built with Python and its dependencies. So, you must have python 3.x installed on your operating system to run it.
+
+<br/>
 
 ## Getting Started
 
@@ -26,31 +39,44 @@ To use PhishingPack, follow these steps:
 
 ```bash
 git clone https://github.com/ByteEncrypt/PhishingPack.git
+```
+
+2. Change the current working directory
+
+```bash
 cd PhishingPack
 ```
 
-2. Create a virtual environment and activate it:
+3. Create a virtual environment and activate it:
 
 ```bash
-python3 -m venv env
-source env/bin/activate   # On Windows, use `env\Scripts\activate` instead.
+python3 -m venv venv
 ```
 
-3. Install dependencies:
+4. Activate the virtual environment
+
+```bash
+venv\Scripts\activate # For Windows
+source venv/bin/activate   # For Linux
+```
+
+5. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run the application:
+6. Run the application:
 
 ```bash
 python main.py
 ```
 
+<br/>
+
 ## Usage
 
-After starting the application, you will see the prompt `PhishingPack >`. Here are some basic commands to get you started:
+Here are some basic commands to get you started:
 
 | Command            | Description                         |
 | ------------------ | ----------------------------------- |
@@ -64,18 +90,26 @@ After starting the application, you will see the prompt `PhishingPack >`. Here a
 | **data display**   | View captured credentials           |
 | **data clear**     | Remove all stored credentials       |
 
-For detailed information about each command, enter `help <command>`, e.g., `help server`.
-
 ## Building Your Own Template
 
-Creating a new template involves editing HTML files located inside the `templates` directory. Make sure to include form fields with names matching those expected by PhishingPack:
+It is not a big deal to build your own template. Just follow the following steps to create a new template:
 
-- `username`
-- `password`
-- `user_agent`
-- `time`
+- Create a new html file in the `templates` directory with the appropriate name.
+- Place the corresponding css stylesheet in the `/static/styles` directory
+- Place your template images and other assets in the `/static/images` directory
+- Make sure to add the html form with the id `form` and the button with type `submit`
+- Then must include `/static/scripts/formHandler.js` in the html file to automatically handle the form submission
+- Finally, it is important to add the corresponding fields in `/config/sites.json` file to update main application configuration
 
-Once created, select the new template when launching the server.
+That's all you need to do here.
+
+<br/>
+
+## Need help?
+
+At the end, if you have any question or need any help, you can start a new discussion or issue for this repository.
+
+<br/>
 
 ## Disclaimer
 

@@ -49,9 +49,6 @@ help_string = """
 
 [magenta2]--> exit[/magenta2]: Quit the program.
 
-
-For individual command assistance, type 'help COMMAND'.
-
 """
 
 
