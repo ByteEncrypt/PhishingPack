@@ -1,5 +1,10 @@
 [
   {
+    "name": "Amazon",
+    "template": "amazon.html",
+    "redirect_to": "https://www.amazon.com/"
+  },
+  {
     "name": "Facebook",
     "template": "facebook.html",
     "redirect_to": "https://www.facebook.com/"

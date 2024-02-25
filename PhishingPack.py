@@ -23,7 +23,7 @@ help_string = """
 [bright_blue]Help usage for PhishingPack![/bright_blue]
 [bright_blue]============================[/bright_blue]
 
-[yellow1]PhishingPack is a powerful phishing tool that makes it easy to perform phishing attacks.[/yellow1]
+[yellow1]PhishingPack is a powerful phishing tool that makes it easy to perform phishing attacks. It is also highly customizable.[/yellow1]
 [yellow3]Type 'exit' or press Ctrl+C to quit the program.[/yellow3]
 
 
@@ -299,6 +299,10 @@ def main():
                     console.print(f"\nServer has started for {site} at", style="green")
                     console.log(f"http://127.0.0.1:{PORT}", style="light_sea_green")
                     console.log(f"http://{ip_address}:{PORT}", style="light_sea_green")
+                    console.print(
+                        "\nYou can also use localhost tunneling services like\nlocalhost.run, serveo, packetriot, telebit or ngrok\nto make this server availble to internet.",
+                        style="light_sea_green bold",
+                    )
                     print("\n\n")
 
         elif command == "server stop":
@@ -366,7 +370,7 @@ def start():
         style="bold royal_blue1",
     )
     console.print(
-        "PhishingPack is the only great phishing tool that offers a wide range of versatility for phishing attacks.",
+        "PhishingPack is a phishing tool written in Python,\nthat provides built-in phishing web pages for popular sites to collect credentials.",
         style="royal_blue1",
     )
     console.print(
