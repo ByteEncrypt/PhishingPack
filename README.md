@@ -9,7 +9,15 @@ PhishingPack is a powerful phishing tool that provides phishing site templates f
 - User-friendly CLI
 - Simple setup process
 - Built-in templates
-- Real-time data monitoring
+- Real-time data capturing for local server
+- Integration with PhishingPackWeb
+
+<br/>
+
+## Introducing PhishingPackWeb
+
+PhishingPackWeb is a web server on production mode that allows you to run phishing sites templates. It means that you do not need to run PhishingPack server locally.
+Now you can use PhishingPackWeb to capture data from the victom without having to run server on your own machine.
 
 <br/>
 
@@ -78,17 +86,25 @@ python PhishingPack.py
 
 Here are some basic commands to get you started:
 
-| Command            | Description                         |
-| ------------------ | ----------------------------------- |
-| **help**           | Show available commands             |
-| **clear**          | Clear the console screen            |
-| **exit**           | Exit the application                |
-| **server start**   | Start the phishing website          |
-| **server stop**    | Stop the running phishing website   |
-| **server status**  | Check whether the server is running |
-| **server monitor** | Watch real-time attack results      |
-| **data display**   | View captured credentials           |
-| **data clear**     | Remove all stored credentials       |
+| Command                 | Description                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| **help**                | Show available commands                                                        |
+| **clear**               | Clear the console screen                                                       |
+| **exit**                | Exit the application                                                           |
+| **server start**        | Start the phishing website on local server                                     |
+| **server stop**         | Stop the running local phishing website                                        |
+| **server status**       | Check whether the local server is running                                      |
+| **server monitor**      | Watch real-time captured data from local                                       |
+| **data display**        | View captured credentials from local site                                      |
+| **data clear**          | Remove all captured credentials from local site                                |
+| **account status**      | Check if you are logged in or not for PhishingPackWeb internet server.         |
+| **account login**       | Login to the PhishingPackWeb internet server.                                  |
+| **account create**      | Create a new account for PhishingPackWeb internet server.                      |
+| **web status**          | Get info about the PhishingPackWeb internet server included template and more. |
+| **web template set**    | Set or change the template for PhishingPackWeb internet server.                |
+| **web template remove** | Remove the template of PhishingPackWeb internet server.                        |
+| **web data display**    | Display the captured data from PhishingPackWeb internet server.                |
+| **web data refresh**    | Get the latest captured data from PhishingPackWeb internet server.             |
 
 ## Building Your Own Template
 
